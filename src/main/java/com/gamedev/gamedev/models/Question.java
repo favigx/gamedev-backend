@@ -1,18 +1,22 @@
 package com.gamedev.gamedev.models;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "questions")
-public class Questions {
+@Document(collection = "Questions")
+public class Question {
     @Id
     private String questionId;
     private String question;
+    private List<String> answers;
     private String correctAnswer;
 
-    public Questions(String questionId, String question, String correctAnswer) {
+    public Question(String questionId, String question, List<String> answers, String correctAnswer) {
         this.questionId = questionId;
         this.question = question;
+        this.answers = answers;
         this.correctAnswer = correctAnswer;
     }
 
@@ -39,5 +43,13 @@ public class Questions {
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
-    
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
 }

@@ -1,4 +1,6 @@
-package com.gamedev.gamedev.Controller;
+package com.gamedev.gamedev.controllers;
+
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamedev.gamedev.Services.UserService;
 import com.gamedev.gamedev.models.User;
+import com.gamedev.gamedev.services.UserService;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -47,4 +52,26 @@ public class UserController {
         }
     }
 
+    @PostMapping("/loginuser")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        User existingUser = userService.getUserByUsername(user.getUsername());
+
+        if (existingUser != null) {
+            String encodedPassword = existingUser.getPassword();
+            String incomingPassword = user.getPassword();
+
+            if (passwordEncoder.matches(incomingPassword, encodedPassword)) {
+                System.out.println("inloggad");
+                @SuppressWarnings("deprecation")
+                String token = Jwts.builder()
+                        .setSubject(existingUser.getUsername())
+                        .setIssuedAt(new Date())
+                        .setExpiration(new Date(System.currentTimeMillis() + jwtExpriationMs))
+                        .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                        .compact();
+                return ResponseEntity.ok(token);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Fel användarnamn eller lösenord");
+    }
 }

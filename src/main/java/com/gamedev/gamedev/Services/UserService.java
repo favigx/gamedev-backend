@@ -1,4 +1,4 @@
-package com.gamedev.gamedev.Services;
+package com.gamedev.gamedev.services;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -30,5 +30,10 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         return mongoOperations.insert(user);
+    }
+
+    public User getUserByUsername(String username) {
+        Query query = new Query(Criteria.where("username").is(username));
+        return mongoOperations.findOne(query, User.class);
     }
 }

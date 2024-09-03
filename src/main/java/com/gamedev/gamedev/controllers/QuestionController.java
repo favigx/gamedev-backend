@@ -1,0 +1,27 @@
+package com.gamedev.gamedev.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gamedev.gamedev.models.Question;
+import com.gamedev.gamedev.services.QuestionService;
+
+@CrossOrigin(origins = "*")
+@RestController
+public class QuestionController {
+
+    private QuestionService questionsService;
+
+    public QuestionController(QuestionService questionsService) {
+        this.questionsService = questionsService;
+    }
+
+    @GetMapping("/questions")
+    public List<Question> getAllQuestions() {
+        return questionsService.getAllQuestions();
+    }
+
+}
