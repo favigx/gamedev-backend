@@ -1,5 +1,7 @@
-package com.gamedev.gamedev.services;
+package com.gamedev.gamedev.Services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -19,6 +21,21 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
 
         return mongoOperations.findAll(Question.class);
+
+    }
+
+    public List<Question> getRandomizedQuestions(int amount) {
+
+        List<Question> allQuestions = getAllQuestions();
+        Collections.shuffle(allQuestions);
+
+        List<Question> requestedAmount = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++) {
+            requestedAmount.add(allQuestions.get(i));
+        }
+
+        return requestedAmount;
 
     }
 
