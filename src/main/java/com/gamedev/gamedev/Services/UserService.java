@@ -1,4 +1,4 @@
-package com.gamedev.gamedev.services;
+package com.gamedev.gamedev.Services;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
