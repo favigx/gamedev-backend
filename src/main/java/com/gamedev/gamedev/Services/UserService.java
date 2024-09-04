@@ -1,4 +1,4 @@
-package com.gamedev.gamedev.Services;
+package com.gamedev.gamedev.services;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -35,5 +35,9 @@ public class UserService {
     public User getUserByUsername(String username) {
         Query query = new Query(Criteria.where("username").is(username));
         return mongoOperations.findOne(query, User.class);
+    }
+
+    public User getUserById(String userId) {
+        return mongoOperations.findById(userId, User.class);
     }
 }
