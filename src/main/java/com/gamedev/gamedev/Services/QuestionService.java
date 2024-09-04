@@ -1,4 +1,4 @@
-package com.gamedev.gamedev.Services;
+package com.gamedev.gamedev.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,4 +39,7 @@ public class QuestionService {
 
     }
 
+    public Question getQuestionById(String questionId) {
+        return mongoOperations.findById(questionId, Question.class);
+    }
 }

@@ -10,11 +10,13 @@ public class User {
     private String userId;
     private String username;
     private String password;
+    private int points;
 
-    public User(String userId, String username, String password) {
+    public User(String userId, String username, String password, int points) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.points = points;
     }
 
     public String getUserId() {
@@ -39,5 +41,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

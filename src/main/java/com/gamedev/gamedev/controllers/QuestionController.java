@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamedev.gamedev.models.Question;
-import com.gamedev.gamedev.Services.QuestionService;
+import com.gamedev.gamedev.services.QuestionService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,6 +23,11 @@ public class QuestionController {
     @GetMapping("/questions")
     public List<Question> getAllQuestions() {
         return questionsService.getAllQuestions();
+    }
+
+    @GetMapping("/question/{questionId}")
+    public Question getQuestionById(@PathVariable String questionId) {
+        return questionsService.getQuestionById(questionId);
     }
 
     @GetMapping("/questions/randomize/{amount}")
