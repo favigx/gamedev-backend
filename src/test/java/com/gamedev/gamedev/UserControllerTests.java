@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.gamedev.gamedev.Services.UserService;
 import com.gamedev.gamedev.controllers.UserController;
 import com.gamedev.gamedev.models.User;
+import com.gamedev.gamedev.services.UserService;
 
 @SpringBootTest
 public class UserControllerTests {
@@ -29,14 +29,14 @@ public class UserControllerTests {
     @Test
     public void addUser() {
         // Test för att se om en användare registreras.
-        User user = new User("testId10", "Kalle10", "123456");
+        User user = new User("testId10", "Kalle10", "123456", 0);
         assertTrue(userController.addUser(user).getStatusCode().is2xxSuccessful());
     }
 
     @Test
     public void login() {
         // Test för att se om en användare kan logga in och få en jwt-token.
-        User user = new User("testId10", "Kalle10", "123456");
+        User user = new User("testId10", "Kalle10", "123456", 0);
         assertTrue(userController.login(user).getStatusCode().is2xxSuccessful());
     }
 }
