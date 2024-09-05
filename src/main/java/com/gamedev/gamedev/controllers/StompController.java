@@ -6,6 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import com.gamedev.gamedev.models.AnswerChoice;
 import com.gamedev.gamedev.models.Question;
 import com.gamedev.gamedev.services.QuestionService;
 
@@ -22,6 +23,12 @@ public class StompController {
     @SendTo("/topic/quiz")
     public List<Question> startQuiz(int ammount) {
         return questionService.getRandomizedQuestions(ammount);
+    }
+
+    @MessageMapping("/answer-choice")
+    @SendTo("/topic/answer-choice")
+    public String answerChosen(AnswerChoice chosenAnswer) {
+        return chosenAnswer.getUsername() + " Valde: " + chosenAnswer.getAnswer();
     }
 
 }
