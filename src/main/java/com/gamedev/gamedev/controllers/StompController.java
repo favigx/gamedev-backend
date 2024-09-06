@@ -7,16 +7,20 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import com.gamedev.gamedev.models.AnswerChoice;
+import com.gamedev.gamedev.models.CalculatePointsRequest;
 import com.gamedev.gamedev.models.Question;
 import com.gamedev.gamedev.services.QuestionService;
+import com.gamedev.gamedev.services.StompService;
 
 @Controller
 public class StompController {
 
     private final QuestionService questionService;
+    private final StompService stompService;
 
-    public StompController(QuestionService questionService) {
+    public StompController(QuestionService questionService, StompService stompService) {
         this.questionService = questionService;
+        this.stompService = stompService;
     }
 
     @MessageMapping("/start-quiz")
@@ -29,6 +33,12 @@ public class StompController {
     @SendTo("/topic/answer-choice")
     public String answerChosen(AnswerChoice chosenAnswer) {
         return chosenAnswer.getUsername() + " Valde: " + chosenAnswer.getAnswer();
+    }
+
+    @MessageMapping("/calculate-points")
+    @SendTo("/topic/calculate-points")
+    public Integer calculatePoints(CalculatePointsRequest calculatePointsRequest) {
+        return stompService.calculatePoints(calculatePointsRequest);
     }
 
 }
