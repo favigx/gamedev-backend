@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.gamedev.gamedev.models.AnswerChoice;
 import com.gamedev.gamedev.models.CalculatePointsRequest;
@@ -16,7 +17,6 @@ import com.gamedev.gamedev.services.RoomService;
 
 import com.gamedev.gamedev.services.StompService;
 
-
 @Controller
 public class StompController {
 
@@ -24,20 +24,19 @@ public class StompController {
 
     private final RoomService roomService;
 
-  
-
     private final StompService stompService;
 
-    public StompController(QuestionService questionService, StompService stompService) {
+    public StompController(QuestionService questionService, StompService stompService, RoomService roomService) {
         this.questionService = questionService;
+        this.roomService = roomService;
         this.stompService = stompService;
 
     }
 
     @MessageMapping("/start-quiz")
     @SendTo("/topic/quiz")
-    public List<Question> startQuiz(int ammount) {
-        return questionService.getRandomizedQuestions(ammount);
+    public List<Question> startQuiz(int ammount, List<Boolean> readyStates) {
+        return questionService.getRandomizedQuestions(ammount, readyStates);
     }
 
     @MessageMapping("/answer-choice")
@@ -46,11 +45,11 @@ public class StompController {
         return chosenAnswer.getUsername() + " Valde: " + chosenAnswer.getAnswer();
     }
 
-
     @MessageMapping("/getrooms")
     @SendTo("/topic/rooms")
     public List<Room> getRooms() {
         return roomService.getAllRooms();
+    }
 
     @MessageMapping("/calculate-points")
     @SendTo("/topic/calculate-points")
