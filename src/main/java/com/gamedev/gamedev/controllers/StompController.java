@@ -21,15 +21,14 @@ import com.gamedev.gamedev.services.StompService;
 public class StompController {
 
     private final QuestionService questionService;
-
     private final RoomService roomService;
-
     private final StompService stompService;
 
     public StompController(QuestionService questionService, StompService stompService, RoomService roomService) {
         this.questionService = questionService;
         this.roomService = roomService;
         this.stompService = stompService;
+        this.roomService = roomService;
 
     }
 
@@ -43,6 +42,13 @@ public class StompController {
     @SendTo("/topic/answer-choice")
     public String answerChosen(AnswerChoice chosenAnswer) {
         return chosenAnswer.getUsername() + " Valde: " + chosenAnswer.getAnswer();
+    }
+
+
+    @MessageMapping("/has-answered")
+    @SendTo("/topic/has-answered")
+    public String hasAnswered(String username) {
+        return username + " har Svarat";
     }
 
     @MessageMapping("/getrooms")
