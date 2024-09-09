@@ -28,8 +28,6 @@ public class StompController {
         this.questionService = questionService;
         this.roomService = roomService;
         this.stompService = stompService;
-        this.roomService = roomService;
-
     }
 
     @MessageMapping("/start-quiz")
@@ -43,7 +41,6 @@ public class StompController {
     public String answerChosen(AnswerChoice chosenAnswer) {
         return chosenAnswer.getUsername() + " Valde: " + chosenAnswer.getAnswer();
     }
-
 
     @MessageMapping("/has-answered")
     @SendTo("/topic/has-answered")

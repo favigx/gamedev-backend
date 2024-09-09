@@ -1,5 +1,7 @@
 package com.gamedev.gamedev.services;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +19,10 @@ public class UserService {
     public UserService(MongoOperations mongoOperations, PasswordEncoder passwordEncoder) {
         this.mongoOperations = mongoOperations;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public List<User> getAllUsers() {
+        return mongoOperations.findAll(User.class);
     }
 
     public User addUser(User user) {

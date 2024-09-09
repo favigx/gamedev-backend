@@ -40,4 +40,35 @@ public class RoomService {
     public List<Room> getAllRooms() {
         return mongoOperations.findAll(Room.class);
     }
+
+    public Room getRoomById(String roomId) {
+        return mongoOperations.findById(roomId, Room.class);
+    }
+
+    public Room joinRoom(String roomId, String userId) {
+        Room room = mongoOperations.findById(roomId, Room.class);
+        if (room == null) {
+            throw new IllegalArgumentException("Room not found with ID: " + roomId);
+        }
+
+        Query query = Query.query(Criteria.where("userId").is(userId));
+        User user = mongoOperations.findOne(query, User.class);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with ID: " + userId);
+        }
+
+        List<String> participants = room.getParticipants();
+        if (participants == null) {
+            participants = new ArrayList<>();
+        }
+        if (!participants.contains(user.getUsername())) {
+            participants.add(user.getUsername());
+            room.setParticipants(participants);
+
+            mongoOperations.save(room);
+        }
+
+        return room;
+    }
+
 }

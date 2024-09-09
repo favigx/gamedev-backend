@@ -1,6 +1,7 @@
 package com.gamedev.gamedev.controllers;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,11 @@ public class UserController {
     @GetMapping()
     public String getRoot() {
         return "hej";
+    }
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/user/{userId}")
