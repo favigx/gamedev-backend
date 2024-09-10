@@ -12,6 +12,10 @@ public class User {
     private String password;
     private int points;
 
+    public User( ) {
+
+    }
+
     public User(String userId, String username, String password, int points) {
         this.userId = userId;
         this.username = username;

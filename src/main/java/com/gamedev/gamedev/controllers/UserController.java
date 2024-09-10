@@ -53,6 +53,11 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    @GetMapping("/user/get-user-from-username/{username}")
+    public User getUserFromUsername(@PathVariable String username) {
+        return userService.getUserByUsername(username);
+    }
+
     @PostMapping("/user")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
