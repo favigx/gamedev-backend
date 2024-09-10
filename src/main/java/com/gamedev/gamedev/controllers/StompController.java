@@ -2,10 +2,12 @@ package com.gamedev.gamedev.controllers;
 
 import java.util.List;
 
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.gamedev.gamedev.models.AnswerChoice;
 import com.gamedev.gamedev.models.CalculatePointsRequest;
@@ -24,16 +26,22 @@ public class StompController {
     private final RoomService roomService;
     private final StompService stompService;
 
-    public StompController(QuestionService questionService, StompService stompService, RoomService roomService) {
+    // @MessageMapping("/start-quiz")
+    // @SendTo("/topic/quiz")
+    // public List<Question> startQuiz(int ammount) {
+    // return questionService.getRandomizedQuestions(ammount);
+    // }
+
+    public StompController(QuestionService questionService, RoomService roomService, StompService stompService) {
         this.questionService = questionService;
         this.roomService = roomService;
         this.stompService = stompService;
     }
 
-    @MessageMapping("/start-quiz")
-    @SendTo("/topic/quiz")
-    public List<Question> startQuiz(int ammount, List<Boolean> readyStates) {
-        return questionService.getRandomizedQuestions(ammount, readyStates);
+    @MessageMapping("/start-quiz/{roomId}")
+    @SendTo("/topic/quiz/{roomId}")
+    public List<Question> startQuiz(@DestinationVariable String roomId, @Payload int amount) {
+        return questionService.getRandomizedQuestions(amount);
     }
 
     @MessageMapping("/answer-choice")
@@ -45,7 +53,7 @@ public class StompController {
     @MessageMapping("/has-answered")
     @SendTo("/topic/has-answered")
     public String hasAnswered(String username) {
-        return username + " har Svarat";
+        return username + " har svarat, öka takten!";
     }
 
     @MessageMapping("/getrooms")

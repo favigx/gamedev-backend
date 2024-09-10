@@ -24,20 +24,19 @@ public class QuestionService {
 
     }
 
-    public List<Question> getRandomizedQuestions(int amount, List<Boolean> readyStates) {
-        if (!readyStates.isEmpty() && readyStates.stream().allMatch((Boolean b) -> b == true)) {
-            List<Question> allQuestions = getAllQuestions();
-            Collections.shuffle(allQuestions);
+    public List<Question> getRandomizedQuestions(int amount) {
 
-            List<Question> requestedAmount = new ArrayList<>();
+        List<Question> allQuestions = getAllQuestions();
+        Collections.shuffle(allQuestions);
 
-            for (int i = 0; i < amount; i++) {
-                requestedAmount.add(allQuestions.get(i));
-            }
-            return requestedAmount;
-        } else {
-            return null;
+        List<Question> requestedAmount = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++) {
+            requestedAmount.add(allQuestions.get(i));
         }
+
+        return requestedAmount;
+
     }
 
     public Question getQuestionById(String questionId) {

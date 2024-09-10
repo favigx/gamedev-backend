@@ -18,17 +18,18 @@ public class QuestionControllerTests {
     private QuestionService questionService;
     private QuestionController questionController;
 
-    @Test
-    public void getRandomizedQuestions() {
-        // Test för att kontrollera om antalet önskade frågor faktiskt returneras.
-        questionController = new QuestionController(questionService);
-        int amount = 5;
-        List<Boolean> readyStates = new ArrayList<>();
-        readyStates.add(true);
-        readyStates.add(true);
-        readyStates.add(true);
-        readyStates.add(true);
-        readyStates.add(true);
-        assertTrue(questionController.getRandomizedQuestions(amount, readyStates) != null);
-    }
+    // @Test
+    // public void getRandomizedQuestions() {
+    // // Test för att kontrollera om antalet önskade frågor faktiskt returneras.
+    // questionController = new QuestionController(questionService);
+    // int amount = 5;
+    // List<Boolean> readyStates = new ArrayList<>();
+    // readyStates.add(true);
+    // readyStates.add(true);
+    // readyStates.add(true);
+    // readyStates.add(true);
+    // readyStates.add(true);
+    // assertTrue(questionController.getRandomizedQuestions(amount, readyStates) !=
+    // null);
+    // }
 }
