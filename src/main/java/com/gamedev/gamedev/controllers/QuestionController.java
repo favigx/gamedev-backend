@@ -32,7 +32,7 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/randomize/{amount}")
-    public List<Question> getRandomizedQuestions(@PathVariable int amount, @RequestBody List<Boolean> readyStates) {
-        return questionsService.getRandomizedQuestions(amount, readyStates);
+    public List<Question> getRandomizedQuestions(@PathVariable int amount) {
+        return questionsService.getRandomizedQuestions(amount);
     }
 }
