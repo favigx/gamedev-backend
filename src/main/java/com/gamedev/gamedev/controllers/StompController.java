@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.gamedev.gamedev.models.AnswerChoice;
 import com.gamedev.gamedev.models.CalculatePointsRequest;
@@ -59,6 +58,12 @@ public class StompController {
     public Integer calculatePoints(CalculatePointsRequest calculatePointsRequest) {
         return stompService.calculatePoints(calculatePointsRequest);
 
+    }
+
+    @MessageMapping("/joined-room-message")
+    @SendTo("/topic/joined-room-message")
+    public String joinedRoomMessage(String username) {
+        return username + "har gått med";
     }
 
 }
