@@ -69,4 +69,10 @@ public class StompController {
 
     }
 
+    @MessageMapping("/joined-room-message")
+    @SendTo("/topic/joined-room-message")
+    public String joinedRoomMessage(String username) {
+        return username + "har gått med";
+    }
+
 }
