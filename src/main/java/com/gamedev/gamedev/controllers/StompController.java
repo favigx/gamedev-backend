@@ -27,17 +27,17 @@ public class StompController {
     private final RoomService roomService;
     private final StompService stompService;
 
-    // @MessageMapping("/start-quiz")
-    // @SendTo("/topic/quiz")
-    // public List<Question> startQuiz(int ammount) {
-    // return questionService.getRandomizedQuestions(ammount);
-    // }
-
     public StompController(QuestionService questionService, RoomService roomService, StompService stompService) {
         this.questionService = questionService;
         this.roomService = roomService;
         this.stompService = stompService;
     }
+
+    // @MessageMapping("/start-quiz")
+    // @SendTo("/topic/quiz")
+    // public List<Question> startQuiz(int ammount) {
+    // return questionService.getRandomizedQuestions(ammount);
+    // }
 
     @MessageMapping("/start-quiz/{roomId}")
     @SendTo("/topic/quiz/{roomId}")
@@ -70,10 +70,10 @@ public class StompController {
 
     }
 
-    @MessageMapping("/joined-room-message")
-    @SendTo("/topic/joined-room-message")
-    public String joinedRoomMessage(String username) {
-        return username + "har gått med";
-    }
+    @MessageMapping("/room/{roomId}/joined-room-message")
+    @SendTo("/topic/room/{roomId}/joined-room-message")
+    public String joinedRoomMessage(@DestinationVariable String roomId, String username) {
 
+        return username + " har gått med i rummet ";
+    }
 }
