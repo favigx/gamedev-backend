@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.gamedev.gamedev.models.AnswerChoice;
 import com.gamedev.gamedev.models.CalculatePointsRequest;
+import com.gamedev.gamedev.models.CalculatePointsResponse;
 import com.gamedev.gamedev.models.Question;
 import com.gamedev.gamedev.models.Room;
 import com.gamedev.gamedev.services.QuestionService;
@@ -64,7 +65,7 @@ public class StompController {
 
     @MessageMapping("/calculate-points")
     @SendTo("/topic/calculate-points")
-    public Integer calculatePoints(CalculatePointsRequest calculatePointsRequest) {
+    public CalculatePointsResponse calculatePoints(CalculatePointsRequest calculatePointsRequest) {
         return stompService.calculatePoints(calculatePointsRequest);
 
     }
