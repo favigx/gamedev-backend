@@ -14,11 +14,11 @@ import com.gamedev.gamedev.models.CalculatePointsRequest;
 import com.gamedev.gamedev.models.CalculatePointsResponse;
 import com.gamedev.gamedev.models.Question;
 import com.gamedev.gamedev.models.Room;
-import com.gamedev.gamedev.services.QuestionService;
+import com.gamedev.gamedev.Services.QuestionService;
 
-import com.gamedev.gamedev.services.RoomService;
+import com.gamedev.gamedev.Services.RoomService;
 
-import com.gamedev.gamedev.services.StompService;
+import com.gamedev.gamedev.Services.StompService;
 
 @Controller
 public class StompController {
@@ -75,5 +75,11 @@ public class StompController {
     public String joinedRoomMessage(@DestinationVariable String roomId, String username) {
 
         return username + " har gått med i rummet ";
+    }
+
+    @MessageMapping("/add-participant")
+    @SendTo("/topic/add-participant")
+    public String addParticipant(String participant) {
+        return participant;
     }
 }
