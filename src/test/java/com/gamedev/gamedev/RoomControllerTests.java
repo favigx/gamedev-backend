@@ -19,8 +19,8 @@ public class RoomControllerTests {
         // Test för att se om det går att lägga till ett rum.
         roomController = new RoomController(roomService);
         Room room1 = new Room("testId1", "Testrum1", null, null);
-        Room room2 = new Room("testId2", "Testrum2", null, null);
-        Room room3 = new Room("testId3", "Testrum3", null, null);
+        Room room2 = new Room("testId2", "Testrum1", null, null);
+        Room room3 = new Room("testId3", "", null, null);
         assertTrue(roomController.addRoom(room1, "Kalle1") != null);
         assertTrue(roomController.addRoom(room2, "Kalle2") != null);
         assertTrue(roomController.addRoom(room3, "Kalle3") != null);
