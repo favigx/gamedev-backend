@@ -23,5 +23,9 @@ public class QuestionControllerTests {
         assertEquals(7, questionController.getRandomizedQuestions(amount).size());
         amount = 10;
         assertEquals(10, questionController.getRandomizedQuestions(amount).size());
+        amount = -5;
+        assertEquals(0, questionController.getRandomizedQuestions(amount).size());
+        amount = 0;
+        assertEquals(0, questionController.getRandomizedQuestions(amount).size());
     }
 }
